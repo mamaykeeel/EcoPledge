@@ -1,3 +1,81 @@
+// Loading Screen and Falling Leaves Animation
+function createLeaf() {
+    const leaf = document.createElement('div');
+    leaf.className = 'leaf';
+    
+    // Random starting position
+    leaf.style.left = Math.random() * 100 + '%';
+    
+    // Random size between 15px and 25px
+    const size = Math.random() * 10 + 15;
+    leaf.style.width = size + 'px';
+    leaf.style.height = size + 'px';
+    
+    // Random rotation
+    leaf.style.transform = `rotate(${Math.random() * 360}deg)`;
+    
+    // Random animation duration between 4s and 8s
+    const duration = Math.random() * 4 + 4;
+    leaf.style.animationDuration = duration + 's';
+    
+    // Random delay
+    leaf.style.animationDelay = Math.random() * 2 + 's';
+    
+    // Add leaf to loading screen
+    document.getElementById('loadingScreen').appendChild(leaf);
+    
+    // Remove leaf after animation
+    leaf.addEventListener('animationend', () => {
+        leaf.remove();
+    });
+}
+
+// Create leaves periodically during loading
+function startFallingLeaves() {
+    // Create initial leaves
+    for (let i = 0; i < 10; i++) {
+        setTimeout(createLeaf, i * 300);
+    }
+    
+    // Continue creating leaves
+    setInterval(createLeaf, 2000);
+}
+
+// Handle loading screen
+function handleLoadingScreen() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    const mainContent = document.querySelector('.main-content');
+    
+    // Start the falling leaves animation
+    startFallingLeaves();
+    
+    // Simulate loading time (minimum 2 seconds)
+    setTimeout(() => {
+        // Fade out loading screen
+        loadingScreen.classList.add('fade-out');
+        
+        // Show main content with transitions
+        mainContent.classList.remove('hidden');
+        // Use setTimeout to ensure the hidden class is removed before adding visible
+        setTimeout(() => {
+            mainContent.classList.add('visible');
+            
+            // Add visible class to all sections with staggered delay
+            const sections = document.querySelectorAll('.section-transition');
+            sections.forEach((section, index) => {
+                setTimeout(() => {
+                    section.classList.add('visible');
+                }, index * 200);
+            });
+        }, 50);
+        
+        // Remove loading screen after fade out
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+        }, 500);
+    }, 2000);
+}
+
 // Initialize AOS (Animate On Scroll)
 AOS.init({
     duration: 800,
@@ -359,6 +437,7 @@ document.addEventListener('keydown', (e) => {
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
+    handleLoadingScreen();
     checkAuthState();
     updateCommunityStats();
 });
