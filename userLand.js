@@ -459,25 +459,39 @@ function updateAchievementsModal() {
 
     for (const [key, achievement] of Object.entries(achievements)) {
         const progress = Math.min((achievement.current / achievement.target) * 100, 100);
+        const isCompleted = progress >= 100;
         const achievementElement = `
-            <div class="p-4 bg-${achievement.bgColor}-50 rounded-lg">
+            <div class="p-4 bg-${achievement.bgColor}-50 rounded-lg border border-${achievement.bgColor}-100 transition-all duration-300 hover:shadow-md">
                 <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-semibold text-gray-900">${achievement.title}</h3>
-                        <p class="text-sm text-gray-600 mt-1">${achievement.description}</p>
-                        <div class="mt-2">
-                            <div class="w-full bg-gray-200 rounded-full h-2">
-                                <div class="bg-primary h-2 rounded-full" style="width: ${progress}%"></div>
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <div class="bg-${achievement.bgColor}-100 p-2 rounded-full">
+                                <i class="fas fa-${achievement.icon} text-${achievement.bgColor}-600"></i>
                             </div>
-                            <p class="text-sm text-gray-600 mt-1">${Math.round(progress)}% complete (${achievement.current}/${achievement.target} ${achievement.unit})</p>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">${achievement.title}</h3>
+                                <p class="text-sm text-gray-600">${achievement.description}</p>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-${achievement.bgColor}-500 h-2 rounded-full transition-all duration-500" style="width: ${progress}%"></div>
+                            </div>
+                            <div class="flex justify-between items-center mt-2">
+                                <p class="text-sm text-gray-600">${Math.round(progress)}% complete (${achievement.current}/${achievement.target} ${achievement.unit})</p>
+                                ${isCompleted ? `
+                                    <span class="text-sm text-${achievement.bgColor}-600 font-medium">
+                                        <i class="fas fa-check-circle mr-1"></i>Completed
+                                    </span>
+                                ` : ''}
+                            </div>
                         </div>
                     </div>
-                    <i class="fas fa-${achievement.icon} text-primary text-xl"></i>
                 </div>
             </div>
         `;
 
-        if (progress >= 100) {
+        if (isCompleted) {
             completedAchievements.push(achievementElement);
         } else {
             inProgressAchievements.push(achievementElement);
@@ -511,10 +525,59 @@ document.getElementById('awardsModal').addEventListener('click', (e) => {
     }
 });
 
+// Function to show achievements modal
+function showAchievementsModal() {
+    const modal = document.getElementById('achievementsModal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        updateAchievementsModal();
+    } else {
+        console.error('Achievements modal not found');
+    }
+}
+
+// Function to hide achievements modal
+function hideAchievementsModal() {
+    const modal = document.getElementById('achievementsModal');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+}
+
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
+    // Add event listeners for achievements modal
+    const viewAchievementsBtn = document.getElementById('viewAchievementsBtn');
+    const closeAchievementsModal = document.getElementById('closeAchievementsModal');
+    const achievementsModal = document.getElementById('achievementsModal');
+
+    if (viewAchievementsBtn) {
+        viewAchievementsBtn.addEventListener('click', () => {
+            console.log('View achievements button clicked');
+            showAchievementsModal();
+        });
+    } else {
+        console.error('View achievements button not found');
+    }
+
+    if (closeAchievementsModal) {
+        closeAchievementsModal.addEventListener('click', hideAchievementsModal);
+    }
+
+    if (achievementsModal) {
+        achievementsModal.addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                hideAchievementsModal();
+            }
+        });
+    }
+
+    // Initialize data
     updateAllData();
-    setupRealTimeUpdates();
+    updateAchievements();
+    updateBadgesDisplay();
 });
 
 // Set up real-time updates
