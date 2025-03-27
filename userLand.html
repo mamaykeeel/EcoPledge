@@ -248,21 +248,27 @@
         <div class="bg-white rounded-xl p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-900">Your Achievements</h2>
-                <button id="closeAchievementsModal" class="text-gray-500 hover:text-gray-700">
+                <button id="closeAchievementsModal" class="text-gray-500 hover:text-gray-700 transition-colors">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
-            <div class="space-y-6">
+            <div class="space-y-8">
                 <!-- Completed Achievements -->
                 <div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Completed Achievements</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-trophy text-yellow-500 mr-2"></i>
+                        Completed Achievements
+                    </h3>
                     <div id="completedAchievements" class="space-y-4">
                         <!-- Completed achievements will be dynamically inserted here -->
                     </div>
                 </div>
                 <!-- In Progress Achievements -->
                 <div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">In Progress</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-spinner text-primary mr-2"></i>
+                        In Progress
+                    </h3>
                     <div id="inProgressAchievements" class="space-y-4">
                         <!-- In progress achievements will be dynamically inserted here -->
                     </div>
