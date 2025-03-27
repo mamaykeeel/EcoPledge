@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoPledge - User Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%232ecc71' d='M50 10c-22.1 0-40 17.9-40 40s17.9 40 40 40 40-17.9 40-40-17.9-40-40-40zm0 75c-19.3 0-35-15.7-35-35s15.7-35 35-35 35 15.7 35 35-15.7 35-35 35z'/><path fill='%2327ae60' d='M50 20c-16.5 0-30 13.5-30 30s13.5 30 30 30 30-13.5 30-30-13.5-30-30-30zm0 55c-13.8 0-25-11.2-25-25s11.2-25 25-25 25 11.2 25 25-11.2 25-25 25z'/><path fill='%232ecc71' d='M50 30c-11 0-20 9-20 20s9 20 20 20 20-9 20-20-9-20-20-20zm0 35c-8.3 0-15-6.7-15-15s6.7-15 15-15 15 6.7 15 15-6.7 15-15 15z'/><path fill='%2327ae60' d='M50 40c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10zm0 15c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5z'/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2ecc71',
+                        secondary: '#27ae60',
+                        accent: '#3498db',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm fixed w-full z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="userLand.html" class="text-gray-700 hover:text-primary transition-colors mr-4">
+                        <i class="fas fa-arrow-left mr-2"></i>Back
+                    </a>
+                    <a href="index.html" class="flex items-center">
+                        <i class="fas fa-leaf text-primary text-2xl mr-2"></i>
+                        <span class="text-xl font-semibold">EcoPledge</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div id="userSection" class="hidden">
+                        <span class="text-gray-700 mr-4">Welcome, <span id="userName" class="font-semibold"></span></span>
+                        <button id="logoutBtn" class="text-gray-700 hover:text-primary transition-colors">
+                            <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="pt-20 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- User Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6" data-aos="fade-up">
+                    <div class="text-4xl font-bold text-primary mb-2">
+                        <span id="totalTasks">0</span>
+                    </div>
+                    <p class="text-gray-600">Total Tasks Completed</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-4xl font-bold text-primary mb-2">
+                        <span id="totalImpact">0</span>
+                    </div>
+                    <p class="text-gray-600">Total Impact Points</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-4xl font-bold text-primary mb-2">
+                        <span id="streak">0</span>
+                    </div>
+                    <p class="text-gray-600">Day Streak</p>
+                </div>
+            </div>
+
+            <!-- Add Task Section -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8" data-aos="fade-up">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Add New Task</h2>
+                <form id="taskForm" class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Task Type</label>
+                        <select id="taskType" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
+                            <option value="">Select a category</option>
+                            <optgroup label="Carbon Reduction">
+                                <option value="carbon-transport">Used Public Transport</option>
+                                <option value="carbon-walk">Walked Instead of Driving</option>
+                                <option value="carbon-bike">Cycled Instead of Driving</option>
+                                <option value="carbon-energy">Reduced Energy Usage</option>
+                                <option value="carbon-food">Reduced Meat Consumption</option>
+                                <option value="carbon-waste">Reduced Food Waste</option>
+                            </optgroup>
+                            <optgroup label="Water Conservation">
+                                <option value="water-shower">Shortened Shower Time</option>
+                                <option value="water-fix">Fixed Leaking Faucet</option>
+                                <option value="water-reuse">Reused Water</option>
+                                <option value="water-efficient">Used Water-Efficient Fixtures</option>
+                            </optgroup>
+                            <optgroup label="Tree Planting">
+                                <option value="planted-tree">Planted a Tree</option>
+                                <option value="planted-vegetable">Planted Vegetables</option>
+                                <option value="planted-flower">Planted Flowers</option>
+                                <option value="planted-herb">Planted Herbs</option>
+                            </optgroup>
+                            <optgroup label="Recycling">
+                                <option value="recycle-paper">Recycled Paper</option>
+                                <option value="recycle-plastic">Recycled Plastic</option>
+                                <option value="recycle-metal">Recycled Metal</option>
+                                <option value="recycle-glass">Recycled Glass</option>
+                                <option value="recycle-electronics">Recycled Electronics</option>
+                            </optgroup>
+                            <optgroup label="Other Actions">
+                                <option value="other">Other Eco-Friendly Action</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div id="amountInput" class="hidden">
+                        <label class="block text-gray-700 font-medium mb-2">Amount</label>
+                        <div class="flex items-center space-x-2">
+                            <input type="number" id="taskAmount" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Enter amount">
+                            <span id="unitLabel" class="text-gray-600">trees</span>
+                        </div>
+                        <p id="amountDescription" class="mt-1 text-sm text-gray-500"></p>
+                    </div>
+                    <div id="otherTaskInput" class="hidden">
+                        <label class="block text-gray-700 font-medium mb-2">Task Description</label>
+                        <input type="text" id="otherTask" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Describe your eco-friendly action">
+                    </div>
+                    <button type="submit" class="w-full bg-primary hover:bg-secondary text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+                        Add Task
+                    </button>
+                </form>
+            </div>
+
+            <!-- Recent Tasks -->
+            <div class="bg-white rounded-xl shadow-lg p-6" data-aos="fade-up">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Recent Tasks</h2>
+                <div id="recentTasks" class="space-y-4">
+                    <!-- Tasks will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div id="successToast" class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-full opacity-0 transition-all duration-300">
+        <div class="flex items-center">
+            <i class="fas fa-check-circle mr-2"></i>
+            <span>Task added successfully!</span>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html> 

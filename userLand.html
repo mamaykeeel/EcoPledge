@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoPledge - User Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%232ecc71' d='M50 10c-22.1 0-40 17.9-40 40s17.9 40 40 40 40-17.9 40-40-17.9-40-40-40zm0 75c-19.3 0-35-15.7-35-35s15.7-35 35-35 35 15.7 35 35-15.7 35-35 35z'/><path fill='%2327ae60' d='M50 20c-16.5 0-30 13.5-30 30s13.5 30 30 30 30-13.5 30-30-13.5-30-30-30zm0 55c-13.8 0-25-11.2-25-25s11.2-25 25-25 25 11.2 25 25-11.2 25-25 25z'/><path fill='%232ecc71' d='M50 30c-11 0-20 9-20 20s9 20 20 20 20-9 20-20-9-20-20-20zm0 35c-8.3 0-15-6.7-15-15s6.7-15 15-15 15 6.7 15 15-6.7 15-15 15z'/><path fill='%2327ae60' d='M50 40c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10zm0 15c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5z'/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2ecc71',
+                        secondary: '#27ae60',
+                        accent: '#3498db',
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm fixed w-full z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center">
+                        <i class="fas fa-leaf text-primary text-2xl mr-2"></i>
+                        <span class="text-xl font-semibold">EcoPledge</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <a href="dashboard.html" class="text-gray-700 hover:text-primary transition-colors mr-4">
+                            <i class="fas fa-chart-line mr-2"></i>Dashboard
+                        </a>
+                        <span class="text-gray-700 mr-4">Welcome, <span id="userName" class="font-semibold"></span></span>
+                        <button id="logoutBtn" class="text-gray-700 hover:text-primary transition-colors">
+                            <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-16">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-r from-primary/10 to-secondary/10 py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-center md:text-left mb-8 md:mb-0">
+                        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Welcome back, <span id="userNameWelcome" class="text-primary"></span>!</h1>
+                        <p class="text-lg text-gray-600">Continue your journey towards a sustainable future</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <button class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-secondary transition-colors" id="viewAwardsBtn">
+                            <i class="fas fa-trophy mr-2"></i>Awards
+                        </button>
+                        <button class="bg-white text-primary border-2 border-primary px-6 py-2 rounded-lg hover:bg-primary/10 transition-colors" id="viewAchievementsBtn">
+                            <i class="fas fa-trophy mr-2"></i>View Achievements
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Grid -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left Column -->
+                <div class="lg:col-span-2 space-y-8">
+                    <!-- Environmental News -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h2 class="text-xl font-bold text-gray-900 mb-6">Latest Environmental News</h2>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=200&h=150&fit=crop" alt="News" class="w-24 h-24 rounded-lg object-cover">
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">Global Climate Summit Announces New Initiatives</h3>
+                                    <p class="text-sm text-gray-600 mt-1">World leaders commit to ambitious climate action targets...</p>
+                                    <a href="#" class="text-primary text-sm font-medium mt-2 inline-block">Read more →</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=200&h=150&fit=crop" alt="News" class="w-24 h-24 rounded-lg object-cover">
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">Breakthrough in Renewable Energy Technology</h3>
+                                    <p class="text-sm text-gray-600 mt-1">Scientists develop more efficient solar panels...</p>
+                                    <a href="#" class="text-primary text-sm font-medium mt-2 inline-block">Read more →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="space-y-8">
+                    <!-- Leaderboard -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h2 class="text-xl font-bold text-gray-900 mb-6">Top Contributors</h2>
+                        <div class="space-y-4">
+                            <div class="text-center text-gray-500 py-4">
+                                No users found. Start adding tasks to see the leaderboard!
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Challenges -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h2 class="text-xl font-bold text-gray-900 mb-6">Active Challenges</h2>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-green-50 rounded-lg">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">Tree Planter</h3>
+                                        <p class="text-sm text-gray-600 mt-1">Plant 10 trees to earn this badge</p>
+                                        <div class="mt-2">
+                                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                                <div class="bg-primary h-2 rounded-full" style="width: 0%"></div>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">0% complete (0/10 trees)</p>
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-tree text-primary text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-blue-50 rounded-lg">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">Cyclist</h3>
+                                        <p class="text-sm text-gray-600 mt-1">Cycle 100km to earn this badge</p>
+                                        <div class="mt-2">
+                                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                                <div class="bg-primary h-2 rounded-full" style="width: 0%"></div>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">0% complete (0/100 km)</p>
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-bicycle text-primary text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-purple-50 rounded-lg">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">Solar Hero</h3>
+                                        <p class="text-sm text-gray-600 mt-1">Use 100kWh of solar energy</p>
+                                        <div class="mt-2">
+                                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                                <div class="bg-primary h-2 rounded-full" style="width: 0%"></div>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">0% complete (0/100 kWh)</p>
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-sun text-primary text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-orange-50 rounded-lg">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">Recycling Pro</h3>
+                                        <p class="text-sm text-gray-600 mt-1">Recycle 50kg of materials</p>
+                                        <div class="mt-2">
+                                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                                <div class="bg-primary h-2 rounded-full" style="width: 0%"></div>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">0% complete (0/50 kg)</p>
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-recycle text-primary text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Environmental Tips -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h2 class="text-xl font-bold text-gray-900 mb-6">Daily Eco Tips</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-lightbulb text-yellow-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">Energy Saving Tip</h3>
+                                    <p class="text-sm text-gray-600">Switch to LED bulbs to save up to 80% on lighting energy</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-tint text-blue-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">Water Conservation</h3>
+                                    <p class="text-sm text-gray-600">Fix leaky faucets to save up to 3,000 gallons per year</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-recycle text-green-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">Recycling Tip</h3>
+                                    <p class="text-sm text-gray-600">Rinse containers before recycling to prevent contamination</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h2 class="text-xl font-bold text-gray-900 mb-6">Quick Actions</h2>
+                        <div class="space-y-3">
+                            <button class="w-full flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                <i class="fas fa-plus-circle text-primary mr-3"></i>
+                                <span class="text-gray-700">Log New Action</span>
+                            </button>
+                            <button class="w-full flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                <i class="fas fa-chart-line text-accent mr-3"></i>
+                                <span class="text-gray-700">View Impact Stats</span>
+                            </button>
+                            <button class="w-full flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                <i class="fas fa-users text-purple-500 mr-3"></i>
+                                <span class="text-gray-700">Join Community Event</span>
+                            </button>
+                            <button onclick="clearAllData()" class="w-full flex items-center p-3 bg-red-50 rounded-lg hover:bg-red-100 transition-colors text-red-600">
+                                <i class="fas fa-trash-alt mr-3"></i>
+                                <span>Clear All Data</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievements Modal -->
+    <div id="achievementsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">Your Achievements</h2>
+                <button id="closeAchievementsModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="space-y-6">
+                <!-- Completed Achievements -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Completed Achievements</h3>
+                    <div id="completedAchievements" class="space-y-4">
+                        <!-- Completed achievements will be dynamically inserted here -->
+                    </div>
+                </div>
+                <!-- In Progress Achievements -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">In Progress</h3>
+                    <div id="inProgressAchievements" class="space-y-4">
+                        <!-- In progress achievements will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Awards Modal -->
+    <div id="awardsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">Your Badges</h2>
+                <button id="closeAwardsModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <!-- Badges will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize AOS
+        AOS.init();
+
+        // Set user name
+        document.getElementById('userName').textContent = 'John Doe';
+        document.getElementById('userNameWelcome').textContent = 'John';
+    </script>
+
+    <script src="userLand.js"></script>
+</body>
+</html> 
